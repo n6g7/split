@@ -1,0 +1,28 @@
+{
+  "rules": {
+    ".write": false,
+
+    "transactions": {
+      "$uid": {
+        ".read": "auth.uid == $uid",
+
+        "$tid": {
+
+        }
+      }
+    },
+
+    "users": {
+      ".indexOn": [
+        "accountId"
+      ],
+      ".read": false,
+
+      "$uid": {
+        "accountId": {
+          ".validate": "newData.isString() && newData.val().length > 0"
+        }
+      }
+    }
+  }
+}
