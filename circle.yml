@@ -1,0 +1,32 @@
+version: 2
+
+jobs:
+  build:
+    working_directory: ~/split
+
+    docker:
+      - image: node:8
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - split-{{ .Branch }}-{{ checksum "package.json" }}
+            - split-{{ .Branch }}
+            - split-master-{{ checksum "package.json" }}
+            - split-master
+
+      - run:
+          name: Install dependencies
+          command: yarn install
+
+      - run:
+          name: Run tests
+          command: yarn test
+
+      - save_cache:
+          key: split-{{ .Branch }}-{{ checksum "package.json" }}
+          paths:
+            - ~/.yarn
+            - ~/split/node_modules

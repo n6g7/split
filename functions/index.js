@@ -13,10 +13,10 @@ exports.webhook = functions.https.onRequest((req, res) => {
       user.getByAccountId(data.account_id)
         .then(snapshot => transaction.create(snapshot.key, data))
         .then(() => res.status(200).send())
-        .catch(error => res.status(404).send('Unknown account_id'))
-      break;
+        .catch(() => res.status(404).send('Unknown account_id'))
+      break
     default:
       res.status(400).send('Unknown type')
-      break;
+      break
   }
 })
