@@ -1,5 +1,14 @@
 const admin = require('firebase-admin')
 
+function create (displayName) {
+  return admin
+    .database()
+    .ref('users')
+    .push({
+      displayName
+    })
+}
+
 function getByAccountId (accountId) {
   return new Promise((resolve, reject) => {
     admin
@@ -26,5 +35,6 @@ function getByAccountId (accountId) {
 }
 
 module.exports = {
+  create,
   getByAccountId
 }
