@@ -24,11 +24,12 @@ const transactionsTransformer = obj => {
     })
 }
 
-function * syncTransactionsSaga () {
-  const uid = yield select(state => state.user.user.uid)
+function * syncTransactionsSaga (action) {
+  if (!action.user) return
+
   return yield fork(
     rsf.database.sync,
-    `transactions/${uid}`,
+    `transactions/${action.user.uid}`,
     syncTransactions,
     transactionsTransformer
   )
