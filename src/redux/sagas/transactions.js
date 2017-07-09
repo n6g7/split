@@ -1,4 +1,4 @@
-import { fork, select, takeLatest } from 'redux-saga/effects'
+import { fork, takeLatest } from 'redux-saga/effects'
 import moment from 'moment'
 
 import rsf from '../rsf'
@@ -35,6 +35,6 @@ function * syncTransactionsSaga (action) {
   )
 }
 
-export default function * instancesSaga () {
+export default function * transactionsSaga () {
   yield takeLatest(types.SYNC_USER, syncTransactionsSaga)
 }

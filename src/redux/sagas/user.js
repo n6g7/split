@@ -40,7 +40,7 @@ function * syncUserSaga () {
   }
 }
 
-export default function * instancesSaga () {
+export default function * userSaga () {
   yield takeEvery(types.LOGIN.REQUEST, loginSaga)
   yield takeEvery(types.LOGOUT.REQUEST, logoutSaga)
   yield fork(syncUserSaga)
