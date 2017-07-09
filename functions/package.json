@@ -4,7 +4,8 @@
   "private": true,
   "dependencies": {
     "firebase-admin": "~4.2.1",
-    "firebase-functions": "^0.5.7"
+    "firebase-functions": "^0.5.7",
+    "moment": "^2.18.1"
   },
   "devDependencies": {
     "standard": "^10.0.2"
