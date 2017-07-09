@@ -21,6 +21,7 @@ functions:
       - http:
           path: authUrl
           method: get
+          cors: true
   cleanTransactions:
     handler: handler.cleanTransactions
     events:
