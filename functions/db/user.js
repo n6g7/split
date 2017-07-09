@@ -1,10 +1,10 @@
 const admin = require('firebase-admin')
 
-function create (displayName) {
+function create ({ displayName, uid }) {
   return admin
     .database()
-    .ref('users')
-    .push({
+    .ref(`users/${uid}`)
+    .set({
       displayName
     })
 }
