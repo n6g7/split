@@ -7,9 +7,12 @@ module.exports = functions.https.onRequest((req, res) => {
 
   switch (type) {
     case 'transaction.created':
+      // We don't care about topups
+      if (data.amount >= 0) return res.status(200).send('Done')
+
       user.getByAccountId(data.account_id)
         .then(snapshot => transaction.create(snapshot.key, data))
-        .then(() => res.status(200).send())
+        .then(() => res.status(201).send('Done'))
         .catch(() => res.status(404).send('Unknown account_id'))
       break
     default:
