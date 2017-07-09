@@ -1,4 +1,5 @@
 import { fork, select, takeLatest } from 'redux-saga/effects'
+import moment from 'moment'
 
 import rsf from '../rsf'
 
@@ -8,7 +9,10 @@ import { types } from '@actions/user'
 const transactionsTransformer = obj =>
   Object.keys(obj).map(key => ({
     ...obj[key],
-    key
+    created: moment(obj[key].created),
+    key,
+    settled: moment(obj[key].settled),
+    updated: moment(obj[key].updated)
   }))
 
 function * syncTransactionsSaga () {
