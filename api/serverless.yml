@@ -20,14 +20,14 @@ functions:
     handler: handler.requestToken
     events:
       - http:
-          path: requestToken
+          path: splitwise/request-token
           method: get
           cors: true
   accessToken:
     handler: handler.accessToken
     events:
       - http:
-          path: accessToken
+          path: splitwise/access-token
           method: post
           cors: true
   cleanTransactions:
