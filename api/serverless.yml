@@ -30,6 +30,13 @@ functions:
           path: splitwise/access-token
           method: post
           cors: true
+  listGroups:
+    handler: groups.list
+    events:
+      - http:
+          path: splitwise/list-groups
+          method: post
+          cors: true
   cleanTransactions:
     handler: handler.cleanTransactions
     events:
