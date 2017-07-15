@@ -2,24 +2,20 @@ const client = require('./client')
 
 const getRequestToken = () => {
   return new Promise((resolve, reject) => {
-    client.getOAuthRequestToken((error, oauthToken, oauthTokenSecret, results) => {
+    client.getOAuthRequestToken((error, requestToken, requestTokenSecret, results) => {
       if (error) return reject(error)
 
       return resolve({
-        oauthToken,
-        oauthTokenSecret,
+        requestToken,
+        requestTokenSecret,
         results
       })
     })
   })
 }
 
-const getAuthorizationURL = () => {
-  return getRequestToken()
-  .then(({ oauthToken }) =>
-    `https://secure.splitwise.com/authorize?oauth_token=${oauthToken}`
-  )
-}
+const getAuthorizationURL = requestToken =>
+  `https://secure.splitwise.com/authorize?oauth_token=${requestToken}`
 
 module.exports = {
   getAuthorizationURL,

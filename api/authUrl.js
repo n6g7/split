@@ -1,8 +1,8 @@
 const { auth } = require('./splitwise')
 
 module.exports = (event, context, callback) => {
-  auth.getAuthorizationURL()
-  .then(authorizationURL => callback(
+  auth.getRequestToken()
+  .then(({ requestToken, requestTokenSecret }) => callback(
     null,
     {
       statusCode: 200,
@@ -10,7 +10,9 @@ module.exports = (event, context, callback) => {
         'Access-Control-Allow-Origin': '*'
       },
       body: JSON.stringify({
-        authorizationURL
+        authorizationURL: auth.getAuthorizationURL(requestToken),
+        requestToken,
+        requestTokenSecret
       })
     }
   ))
