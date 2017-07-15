@@ -8,6 +8,7 @@ provider:
   profile: serverless
   memorySize: 256
   environment:
+    CALLBACK_URL: ${self:custom.env.callbackUrl}
     CONSUMER_KEY: ${self:custom.env.consumerKey}
     SECRET_KEY: ${self:custom.env.secretKey}
 

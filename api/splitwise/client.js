@@ -6,7 +6,7 @@ const client = new OAuth.OAuth(
   process.env.CONSUMER_KEY,
   process.env.SECRET_KEY,
   '1.0',
-  'https://split.gnab.fr/sw/callback',
+  process.env.CALLBACK_URL,
   'HMAC-SHA1'
 )
 
