@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { Image, List } from 'semantic-ui-react'
 
 import Amount from './Amount'
 
@@ -18,18 +17,21 @@ class Transaction extends PureComponent {
       merchant
     } = this.props.transaction
 
-    return <List.Item>
-      <Image avatar src={merchant ? merchant.logo : ''} />
-      <List.Content>
-        <List.Header>{merchant ? merchant.name : description}</List.Header>
-        <List.Description>{created.format('LLLL')}</List.Description>
-      </List.Content>
-      <List.Content floated='right'>
-        <List.Description>
-          <Amount amount={amount} currency={currency} />
-        </List.Description>
-      </List.Content>
-    </List.Item>
+    const title = merchant
+      ? `${merchant.name} ${merchant.emoji}`
+      : description
+
+    return <li>
+      <img src={merchant ? merchant.logo : ''} alt={title} />
+
+      <div className='title'>
+        <h2>{title}</h2>
+        <p>{created.format('LLLL')}</p>
+      </div>
+
+      <Amount amount={amount} currency={currency} />
+      <button>Split</button>
+    </li>
   }
 }
 

@@ -25,12 +25,16 @@ class Amount extends PureComponent {
     } = this.props
 
     currency = currencies[currency]
+
+    amount *= -1
     amount /= currency.divisor
 
-    return <span>
-      { currency.prefix }
-      { (-amount).toFixed(2) }
-      { currency.suffix }
+    const [ bucks, cents ] = amount.toFixed(2).split('.')
+
+    return <span className='amount'>
+      {currency.prefix && <span className='currency'>{ currency.prefix }</span>}
+      <span className='bucks'>{ bucks }</span>.{cents}
+      {currency.suffix && <span className='currency'>{ currency.suffix }</span>}
     </span>
   }
 }
