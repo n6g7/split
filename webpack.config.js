@@ -11,7 +11,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      '@actions': path.resolve(__dirname, 'src/redux/actions')
+      '@actions': path.resolve(__dirname, 'src/redux/actions'),
+      '@services': path.resolve(__dirname, 'src/services')
     }
   },
   module: {
