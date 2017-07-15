@@ -1,8 +1,8 @@
 {
   "rules": {
-    ".write": false,
-
     "transactions": {
+      ".write": false,
+
       "$uid": {
         ".indexOn": [
           "id"
@@ -19,11 +19,28 @@
       ".indexOn": [
         "accountId"
       ],
-      ".read": false,
 
       "$uid": {
+        ".read": "auth.uid === $uid",
+
         "accountId": {
           ".validate": "newData.isString() && newData.val().length > 0"
+        },
+        "accessToken": {
+          ".validate": "newData.isString() && newData.val().length > 0",
+          ".write": "auth.uid === $uid"
+        },
+        "accessTokenSecret": {
+          ".validate": "newData.isString() && newData.val().length > 0",
+          ".write": "auth.uid === $uid"
+        },
+        "requestToken": {
+          ".validate": "newData.isString() && newData.val().length > 0",
+          ".write": "auth.uid === $uid"
+        },
+        "requestTokenSecret": {
+          ".validate": "newData.isString() && newData.val().length > 0",
+          ".write": "auth.uid === $uid"
         }
       }
     }

@@ -1,4 +1,4 @@
-import { call, fork, put, take, takeEvery } from 'redux-saga/effects'
+import { call, fork, put, select, take, takeEvery } from 'redux-saga/effects'
 
 import rsf, { authProvider } from '../rsf'
 
@@ -40,8 +40,18 @@ function * syncUserSaga () {
   }
 }
 
+function * saveRequestTokenSaga ({ token, tokenSecret }) {
+  const uid = yield select(state => state.user.user.uid)
+
+  yield call(rsf.database.patch, `/users/${uid}`, {
+    requestToken: token,
+    requestTokenSecret: tokenSecret
+  })
+}
+
 export default function * userSaga () {
   yield takeEvery(types.LOGIN.REQUEST, loginSaga)
   yield takeEvery(types.LOGOUT.REQUEST, logoutSaga)
+  yield takeEvery(types.SAVE.REQUEST_TOKEN, saveRequestTokenSaga)
   yield fork(syncUserSaga)
 }
