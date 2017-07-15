@@ -9,10 +9,7 @@ export const types = {
     SUCCESS: 'LOGOUT.SUCCESS',
     FAILURE: 'LOGOUT.FAILURE'
   },
-  SYNC_USER: 'SYNC_USER',
-  SAVE: {
-    REQUEST_TOKEN: 'SAVE.REQUEST_TOKEN'
-  }
+  SYNC_USER: 'SYNC_USER'
 }
 
 export const login = () => ({
@@ -44,10 +41,4 @@ export const logoutFailure = error => ({
 export const syncUser = user => ({
   type: types.SYNC_USER,
   user
-})
-
-export const saveRequestToken = (token, tokenSecret) => ({
-  type: types.SAVE.REQUEST_TOKEN,
-  token,
-  tokenSecret
 })
