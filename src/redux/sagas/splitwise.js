@@ -1,8 +1,8 @@
-import { call, fork, select, take, takeEvery } from 'redux-saga/effects'
+import { call, fork, put, select, take, takeEvery } from 'redux-saga/effects'
 
 import rsf from '../rsf'
 
-import { types } from '@actions/splitwise'
+import { types, setToken } from '@actions/splitwise'
 import { types as userTypes } from '@actions/user'
 import Splitwise from '@services/splitwise'
 
@@ -47,13 +47,27 @@ function * finaliseSaga () {
     verifier
   )
 
+  yield put(setToken(accessToken, accessTokenSecret))
+
   yield call(rsf.database.patch, `/users/${user.uid}`, {
     accessToken,
     accessTokenSecret
   })
 }
 
+function * getAccessTokenSaga ({ user }) {
+  if (!user) return
+
+  const {
+    accessToken,
+    accessTokenSecret
+  } = yield call(rsf.database.read, `/users/${user.uid}`)
+
+  yield put(setToken(accessToken, accessTokenSecret))
+}
+
 export default function * splitwiseSaga () {
   yield takeEvery(types.AUTHORIZE, authorizeSaga)
+  yield takeEvery(userTypes.SYNC_USER, getAccessTokenSaga)
   yield fork(finaliseSaga)
 }
