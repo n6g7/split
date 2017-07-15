@@ -11,11 +11,12 @@ module.exports = functions.https.onRequest((req, res) => {
       if (data.amount >= 0) return res.status(200).send('Done')
 
       user.getByAccountId(data.account_id)
-        .then(snapshot => transaction.create(snapshot.key, data))
+        .then(snapshot => transaction.createOrUpdate(snapshot.key, data))
         .then(() => res.status(201).send('Done'))
         .catch(() => res.status(404).send('Unknown account_id'))
       break
     default:
+      console.log(`Unknown type: ${type}`)
       res.status(400).send('Unknown type')
       break
   }

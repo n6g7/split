@@ -8,6 +8,13 @@ function create (userId, data) {
     .push(data)
 }
 
+function update (userId, transactionId, data) {
+  return admin
+    .database()
+    .ref(`transactions/${userId}/${transactionId}`)
+    .set(data)
+}
+
 function _delete (userId, transactionId) {
   return admin
     .database()
@@ -43,8 +50,46 @@ function clean () {
     })
 }
 
+function getById (userId, id) {
+  return new Promise((resolve, reject) => {
+    admin
+      .database()
+      .ref(`transactions/${userId}`)
+      .orderByChild('id')
+      .equalTo(id)
+      .once('value', snap => {
+        const error = new Error('Transaction not found')
+        const result = snap.val()
+
+        if (!result) return reject(error)
+
+        const keys = Object.keys(result)
+
+        return keys.length > 0
+          ? resolve({
+            key: keys[0],
+            value: result[keys[0]]
+          })
+          : reject(error)
+      })
+  })
+}
+
+function createOrUpdate (userId, data) {
+  const { id } = data
+
+  return getById(userId, id)
+  .then(
+    ({ key }) => update(userId, key, data),
+    () => create(userId, data)
+  )
+}
+
 module.exports = {
   clean,
   create,
-  delete: _delete
+  createOrUpdate,
+  delete: _delete,
+  getById,
+  update
 }

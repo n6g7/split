@@ -4,6 +4,9 @@
 
     "transactions": {
       "$uid": {
+        ".indexOn": [
+          "id"
+        ],
         ".read": "auth.uid == $uid",
 
         "$tid": {
