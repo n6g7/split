@@ -17,14 +17,14 @@ custom:
 
 functions:
   requestToken:
-    handler: handler.requestToken
+    handler: auth.request
     events:
       - http:
           path: splitwise/request-token
           method: get
           cors: true
   accessToken:
-    handler: handler.accessToken
+    handler: auth.access
     events:
       - http:
           path: splitwise/access-token
