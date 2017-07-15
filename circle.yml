@@ -1,7 +1,7 @@
 version: 2
 
 jobs:
-  build:
+  react:
     working_directory: ~/split
 
     docker:
@@ -12,10 +12,10 @@ jobs:
 
       - restore_cache:
           keys:
-            - split-{{ .Branch }}-{{ checksum "package.json" }}
-            - split-{{ .Branch }}
-            - split-master-{{ checksum "package.json" }}
-            - split-master
+            - react-{{ .Branch }}-{{ checksum "package.json" }}
+            - react-{{ .Branch }}
+            - react-master-{{ checksum "package.json" }}
+            - react-master
 
       - run:
           name: Install dependencies
@@ -26,7 +26,44 @@ jobs:
           command: yarn test
 
       - save_cache:
-          key: split-{{ .Branch }}-{{ checksum "package.json" }}
+          key: react-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
             - ~/.yarn
             - ~/split/node_modules
+
+  serverless:
+    working_directory: ~/split
+
+    docker:
+      - image: node:8
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - serverless-{{ .Branch }}-{{ checksum "api/package.json" }}
+            - serverless-{{ .Branch }}
+            - serverless-master-{{ checksum "api/package.json" }}
+            - serverless-master
+
+      - run:
+          name: Install dependencies
+          command: cd api && yarn install
+
+      - run:
+          name: Run tests
+          command: cd api && yarn test
+
+      - save_cache:
+          key: serverless-{{ .Branch }}-{{ checksum "api/package.json" }}
+          paths:
+            - ~/.yarn
+            - ~/split/api/node_modules
+
+workflows:
+  version: 2
+  stack:
+    jobs:
+      - react
+      - serverless

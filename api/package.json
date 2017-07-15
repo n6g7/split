@@ -4,8 +4,16 @@
   "description": "Split's API",
   "main": "handler.js",
   "license": "MIT",
+  "scripts": {
+    "deploy": "serverless deploy",
+    "pretest": "standard"
+  },
   "dependencies": {
     "node-fetch": "^1.7.1",
     "oauth": "^0.9.15"
+  },
+  "devDependencies": {
+    "serverless": "^1.17.0",
+    "standard": "^10.0.2"
   }
 }
