@@ -1,2 +1,2 @@
-module.exports.authUrl = require('./authUrl')
 module.exports.cleanTransactions = require('./cleanTransactions')
+module.exports.requestToken = require('./requestToken')

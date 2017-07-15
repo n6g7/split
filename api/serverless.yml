@@ -15,11 +15,11 @@ custom:
   env: ${file(./env.yml)}
 
 functions:
-  authUrl:
-    handler: handler.authUrl
+  requestToken:
+    handler: handler.requestToken
     events:
       - http:
-          path: authUrl
+          path: requestToken
           method: get
           cors: true
   cleanTransactions:
