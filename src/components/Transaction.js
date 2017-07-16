@@ -24,13 +24,18 @@ class Transaction extends PureComponent {
     return <li>
       <img src={merchant ? merchant.logo : ''} alt={title} />
 
-      <div className='title'>
-        <h2>{title}</h2>
-        <p>{created.format('LLLL')}</p>
+      <div className='content'>
+        <div className='title'>
+          <h2>{title}</h2>
+          <p>{created.format('LLLL')}</p>
+        </div>
+
+        <div className='pull'>
+          <Amount amount={amount} currency={currency} />
+          <button>Split</button>
+        </div>
       </div>
 
-      <Amount amount={amount} currency={currency} />
-      <button>Split</button>
     </li>
   }
 }

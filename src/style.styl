@@ -3,6 +3,7 @@
 lightGrey = #f1f1f1
 grey = rgba(51, 51, 51, 0.56)
 red = #e74c3c
+responsiveLimit = 950px
 
 body
   background: lightGrey
@@ -11,7 +12,11 @@ body
   color: #333333
   font-family: 'Nunito', sans-serif
   font-size: 14px
+  margin: 0
   padding: 60px 0
+
+  @media (max-width: responsiveLimit)
+    padding: 32px 0
 
 main
   align-items: flex-start
@@ -21,7 +26,14 @@ main
   margin: auto
   width: 922px
 
+  @media (max-width: responsiveLimit)
+    align-items: stretch
+    flex-flow: column nowrap
+    width: auto
+
 aside
+  position: sticky
+  top: 60px
   width: 270px
 
   h1
@@ -32,6 +44,12 @@ aside
   p
     margin: 0 0 16px
 
+  @media (max-width: responsiveLimit)
+    margin: 0 0 24px
+    padding: 0 32px
+    position: static
+    width: auto
+
 ol
   display: flex
   flex-flow: column nowrap
@@ -41,7 +59,7 @@ ol
   width: 622px
 
   li
-    align-items: center
+    align-items: stretch
     background: white
     border-radius: 4px
     display: flex
@@ -55,20 +73,47 @@ ol
       object-fit: contain
       width: 62px
 
-    .title
+    .content
+      align-items: center
+      display: flex
+      flex-flow: row nowrap
       flex-grow: 1
 
-      h2
-        font-size: 20px
-        font-weight: 600
-        margin: 0 0 4px
+      .title
+        flex-grow: 1
 
-      p
-        color: grey
-        margin: 0
+        h2
+          font-size: 20px
+          font-weight: 600
+          margin: 0 0 4px
 
-    button
-      margin-left: 26px
+        p
+          color: grey
+          margin: 0
+
+        @media (max-width: responsiveLimit)
+          margin-bottom: 16px
+
+      .pull
+        display: flex
+        flex-flow: row nowrap
+
+        button
+          margin-left: 26px
+
+        @media (max-width: responsiveLimit)
+          justify-content: space-between
+
+      @media (max-width: responsiveLimit)
+        align-items: stretch
+        flex-flow: column nowrap
+
+    @media (max-width: responsiveLimit)
+      padding: 16px 24px
+
+  @media (max-width: responsiveLimit)
+    padding: 0 8px
+    width: auto
 
 button
   background: red
